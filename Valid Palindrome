@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        string ans = "";
+    
+    for(int i=0; i<s.length(); i++){
+        if(isalnum(s[i])){
+            ans.push_back(tolower(s[i]));
+        }
+    }
+    int start = ans.length()-1;
+    int end= 0;
+
+    while(end <= start){
+        if(ans[end] != ans[start]){
+            return false;
+        }
+        else{
+            start--;
+            end++;
+        }
+    }
+    return true;
+    }
+};
