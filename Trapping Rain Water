@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int left = 0, right = height.size() - 1, leftMax = INT_MIN,
+            rightMax = INT_MIN, ans = 0;
+        while (left < right) {
+            leftMax = max(leftMax, height[left]);
+            rightMax = max(rightMax, height[right]);
+
+            ans += (leftMax < rightMax) ? leftMax - height[left++]
+                                        : rightMax - height[right--];
+        }
+        return ans;
+    }
+};
+
+// Instead of using this line ->  ans += (leftMax < rightMax) ? leftMax - height[left++]
+//                                         : rightMax - height[right--];
+
+// We can use this -> 
+// If height[left] < height[right] and height[left] < leftMax: We calculate the amount of rainwater trapped between both towers and increase the left pointer.
+// But if height[left] > leftMax: We update the value of leftMax and increase the left pointer.
+// if (height[left] < height[right])
+// {
+//     if (height[left] > leftMax)
+//         leftMax = height[left]
+//     else
+//         trappedWater = trappedWater + leftMax - height[left]
+//     left = left + 1
+// }
+
+// If height[left] > height[right]) and height[right] < rightMax: We calculate the amount of rainwater trapped between both towers and decrease the right pointer.
+// But if height[right] > rightMax: We update the value of rightMax and decrease the right pointer.
+// if (height[left] > height[right])
+// {
+//     if (height[right] > rightMax)
+//         rightMax = height[right]
+//     else
+//         trappedWater = trappedWater + rightMax - height[right]
+//     right = right - 1
+// }
+// When left > right, then we exit the loop and return the value stored in the trappedWater.
+
+// Time complexity:O(N)
+
+// Space complexity:O(1)
